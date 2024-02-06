@@ -26,7 +26,7 @@ function Sidebar() {
 
           return (
             <Link
-              className={`${location.pathname === i.href ? "bg-primary-light" : ""} w-full py-2 text-center sm:block`}
+              className={`${location.pathname === i.href ? "bg-primary-light" : ""} w-full p-2 text-center sm:block`}
               to={i.href}
               key={i.name}
             >
