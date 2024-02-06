@@ -2,6 +2,7 @@ import { Request, Response, Router } from "express";
 import User from "../models/user";
 import hashPassword from "../utils/hashPassword";
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 import {
   generateAccessToken,
   generateRefreshToken,
@@ -94,6 +95,30 @@ const authRouter = Router()
         acessToken: accessToken,
         payload: { username: userFind.username },
       });
+    } catch (e) {
+      return res.status(500).end();
+    }
+  })
+  .get("/refresh", async (req: Request, res: Response) => {
+    try {
+      const token = req.cookies?.token;
+
+      if (!token) {
+        return res.status(401).json("No token provided");
+      }
+
+      const payload = jwt.verify(token, process.env.JWT_SECRET!);
+
+      if (typeof payload === "string") {
+        return res.status(401).json("Invalid refresh token");
+      }
+
+      delete payload.iat;
+      delete payload.exp;
+
+      const newAccessToken = generateAccessToken(payload);
+
+      return res.json(newAccessToken);
     } catch (e) {
       return res.status(500).end();
     }
