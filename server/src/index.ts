@@ -3,6 +3,9 @@ import cors from "cors";
 import apiRouter from "./routes";
 import cookieParser from "cookie-parser";
 import "dotenv/config";
+import mongoose from "mongoose";
+
+mongoose.connect(process.env.MONGODB_URI!);
 
 const app: Application = express();
 const port = 3000;
