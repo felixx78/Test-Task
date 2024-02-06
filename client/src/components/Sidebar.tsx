@@ -9,29 +9,36 @@ function Sidebar() {
     {
       name: "Add",
       href: "/add",
+      authRequire: true,
     },
   ];
 
-  const isLogged = false;
+  const isLogged = true;
 
   return (
-    <aside className="text-background bg-primary flex h-screen w-[200px] flex-col pt-4">
-      <div className="mb-12 text-center text-xl font-bold">Domains</div>
-      <div className="divide-primary-light border-primary-light divide-y-2 border-y-2">
-        {items.map((i) => (
-          <Link
-            className="hover:bg-primary-light block w-full py-2 text-center transition-colors"
-            to={i.href}
-            key={i.name}
-          >
-            {i.name}
-          </Link>
-        ))}
+    <aside className="text-background bg-primary flex w-full items-center justify-between px-4 py-2 sm:h-screen sm:w-[200px] sm:flex-col sm:items-stretch sm:px-0 sm:pt-4">
+      <div className="text-center text-xl font-bold sm:mb-12">Domains</div>
+      <div className="divide-primary-light border-primary-light flex gap-4 sm:flex-col sm:gap-0 sm:divide-y-2 sm:border-y-2">
+        {items.map((i) => {
+          if (i.authRequire && !isLogged) return null;
+
+          return (
+            <Link
+              className="hover:bg-primary-light w-full py-2 text-center transition-colors sm:block"
+              to={i.href}
+              key={i.name}
+            >
+              {i.name}
+            </Link>
+          );
+        })}
       </div>
 
-      <div className="flex-1"></div>
+      <div className="hidden flex-1 sm:block"></div>
 
-      {true && <button className="bg-primary-dark py-2">Logout</button>}
+      {isLogged && (
+        <button className="sm:bg-primary-dark sm:py-2">Logout</button>
+      )}
     </aside>
   );
 }
