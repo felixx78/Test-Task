@@ -3,7 +3,7 @@ import Sidebar from "../components/Sidebar";
 
 function RootLayout() {
   return (
-    <div className="bg-background text-copy flex min-h-screen">
+    <div className="bg-background text-copy flex min-h-screen flex-col sm:flex-row">
       <Sidebar />
       <main>
         <Outlet />
