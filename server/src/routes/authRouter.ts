@@ -1,14 +1,14 @@
 import { Request, Response, Router } from "express";
 import User from "../models/user";
 import hashPassword from "../utils/hashPassword";
+import bcrypt from "bcrypt";
 import {
   generateAccessToken,
   generateRefreshToken,
 } from "../utils/generateToken";
 
-const authRouter = Router().post(
-  "/signup",
-  async (req: Request, res: Response) => {
+const authRouter = Router()
+  .post("/signup", async (req: Request, res: Response) => {
     try {
       const { username, password } = req.body;
 
@@ -52,7 +52,51 @@ const authRouter = Router().post(
     } catch (e) {
       return res.status(500).end();
     }
-  }
-);
+  })
+  .post("/login", async (req: Request, res: Response) => {
+    try {
+      const { username, password } = req.body;
+
+      if (!username) {
+        return res.status(400).json("No username provided");
+      }
+
+      if (!password) {
+        return res.status(400).json("No password provided");
+      }
+
+      const userFind = await User.findOne({ username: username });
+
+      if (!userFind) {
+        return res.status(404).json("User does not exist");
+      }
+
+      const isPasswordMatch = await bcrypt.compare(password, userFind.password);
+
+      if (!isPasswordMatch) {
+        return res.status(401).json("Incorrect password");
+      }
+
+      const refreshToken = generateRefreshToken({
+        username: userFind.username,
+      });
+      const accessToken = generateAccessToken({ username: userFind.username });
+
+      const expirationDate = new Date();
+      expirationDate.setDate(expirationDate.getDate() + 30);
+
+      res.cookie("token", refreshToken, {
+        httpOnly: true,
+        expires: expirationDate,
+      });
+
+      return res.json({
+        acessToken: accessToken,
+        payload: { username: userFind.username },
+      });
+    } catch (e) {
+      return res.status(500).end();
+    }
+  });
 
 export default authRouter;
