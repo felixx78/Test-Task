@@ -7,64 +7,69 @@ import {
   generateAccessToken,
   generateRefreshToken,
 } from "../utils/generateToken";
+import { z } from "zod";
+import validate from "../utils/validate";
+
+const userSchema = z.object({
+  body: z.object({
+    username: z
+      .string()
+      .min(2)
+      .max(16)
+      .refine((value) => /^[^0-9]/.test(value), {
+        message: "Username cannot start with a number",
+      }),
+    password: z.string().min(4).max(32),
+  }),
+});
 
 const authRouter = Router()
-  .post("/signup", async (req: Request, res: Response) => {
-    try {
-      const { username, password } = req.body;
+  .post(
+    "/signup",
+    validate(userSchema),
+    async (req: Request, res: Response) => {
+      try {
+        const { username, password } = req.body;
 
-      if (!username) {
-        return res.status(400).json("No username provided");
+        const isUserExist = await User.findOne({ username: username });
+
+        if (isUserExist) {
+          return res.status(400).json("User already exist");
+        }
+
+        const hashedPassword = await hashPassword(password);
+
+        const newUser = new User({
+          username: username,
+          password: hashedPassword,
+        });
+        newUser.save();
+
+        const refreshToken = generateRefreshToken({
+          username: newUser.username,
+        });
+        const accessToken = generateAccessToken({ username: newUser.username });
+
+        const expirationDate = new Date();
+        expirationDate.setDate(expirationDate.getDate() + 30);
+
+        res.cookie("token", refreshToken, {
+          httpOnly: true,
+          expires: expirationDate,
+        });
+
+        return res.json({
+          acessToken: accessToken,
+          payload: { username: newUser.username },
+        });
+      } catch (e) {
+        return res.status(500).end();
       }
-
-      if (!password) {
-        return res.status(400).json("No password provided");
-      }
-
-      const isUserExist = await User.findOne({ username: username });
-
-      if (isUserExist) {
-        return res.status(400).json("User already exist");
-      }
-
-      const hashedPassword = await hashPassword(password);
-
-      const newUser = new User({
-        username: username,
-        password: hashedPassword,
-      });
-      newUser.save();
-
-      const refreshToken = generateRefreshToken({ username: newUser.username });
-      const accessToken = generateAccessToken({ username: newUser.username });
-
-      const expirationDate = new Date();
-      expirationDate.setDate(expirationDate.getDate() + 30);
-
-      res.cookie("token", refreshToken, {
-        httpOnly: true,
-        expires: expirationDate,
-      });
-
-      return res.json({
-        acessToken: accessToken,
-        payload: { username: newUser.username },
-      });
-    } catch (e) {
-      return res.status(500).end();
     }
-  })
-  .post("/login", async (req: Request, res: Response) => {
+  )
+  .post("/login", validate(userSchema), async (req: Request, res: Response) => {
     try {
       const { username, password } = req.body;
-
-      if (!username) {
-        return res.status(400).json("No username provided");
-      }
-
-      if (!password) {
-        return res.status(400).json("No password provided");
-      }
 
       const userFind = await User.findOne({ username: username });
 
