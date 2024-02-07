@@ -1,7 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { User } from "../lib/definition";
 
-const initialState = JSON.parse(localStorage.getItem("user") || "{}") as User;
+const initialState = localStorage.getItem("user")
+  ? (JSON.parse(localStorage.getItem("user") || "") as User)
+  : undefined;
 
 const userSlice = createSlice({
   name: "user",
@@ -12,7 +14,7 @@ const userSlice = createSlice({
       localStorage.setItem("user", JSON.stringify(action.payload));
     },
     logout(state) {
-      state = {} as User;
+      state = undefined;
     },
   },
 });
