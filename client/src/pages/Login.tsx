@@ -63,7 +63,7 @@ function Login() {
     <div className="flex h-screen min-h-[400px] items-center bg-background px-4 pt-24 text-copy">
       <form
         onSubmit={handleSubmit(handleLogin)}
-        className="mx-auto mt-[-150px] min-w-[300px] max-w-[400px] rounded-md bg-foreground px-4 py-6"
+        className="mx-auto mt-[-150px] min-w-[290px] max-w-[400px] rounded-md bg-foreground px-4 py-6"
       >
         <h1 className="text-center text-xl">Login</h1>
 
