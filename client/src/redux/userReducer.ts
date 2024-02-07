@@ -3,7 +3,7 @@ import { User } from "../lib/definition";
 
 const initialState = localStorage.getItem("user")
   ? (JSON.parse(localStorage.getItem("user") || "") as User)
-  : undefined;
+  : null;
 
 const userSlice = createSlice({
   name: "user",
@@ -14,7 +14,7 @@ const userSlice = createSlice({
       localStorage.setItem("user", JSON.stringify(action.payload));
     },
     logout(state) {
-      state = undefined;
+      state = null;
     },
   },
 });
