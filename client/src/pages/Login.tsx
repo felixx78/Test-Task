@@ -29,33 +29,34 @@ function Login() {
     resolver: zodResolver(schema),
   });
 
-  const handleLogin = (data: FormData) => {
-    fetch("http://localhost:3000/api/auth/login", {
+  const handleLogin = async (formData: FormData) => {
+    const response = await fetch("http://localhost:3000/api/auth/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(data),
-    }).then(async (response) => {
-      const data = await response.json();
-      if (!response.ok) {
-        if (data === "User does not exist") {
-          setError("username", {
-            type: "validate",
-            message: "User does not exist",
-          });
-        } else {
-          setError("password", {
-            type: "validate",
-            message: "Incorrect Password",
-          });
-        }
-      } else {
-        localStorage.setItem("token", data.acessToken);
-        dispatch(userActions.auth(data.payload));
-        setTimeout(() => navigate("/"), 0);
-      }
+      body: JSON.stringify(formData),
     });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      if (data === "User does not exist") {
+        setError("username", {
+          type: "validate",
+          message: "User does not exist",
+        });
+      } else {
+        setError("password", {
+          type: "validate",
+          message: "Incorrect Password",
+        });
+      }
+    } else {
+      localStorage.setItem("token", data.acessToken);
+      dispatch(userActions.auth(data.payload));
+      navigate("/");
+    }
   };
 
   return (
