@@ -3,10 +3,8 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import AuthInput from "../components/AuthInput";
 import { Link, useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { userActions } from "../redux/userReducer";
-import { RootState } from "../redux/store";
-import { useEffect } from "react";
 
 type FormData = {
   username: string;
