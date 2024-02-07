@@ -51,7 +51,8 @@ function Login() {
           });
         }
       } else {
-        dispatch(userActions.auth(data));
+        localStorage.setItem("token", data.acessToken);
+        dispatch(userActions.auth(data.payload));
         setTimeout(() => navigate("/"), 0);
       }
     });
