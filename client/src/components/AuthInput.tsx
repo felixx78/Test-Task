@@ -24,7 +24,7 @@ function AuthInput({
       <div className="relative">
         <input
           {...register(name)}
-          className={`${isError ? "border-error" : "border-border"} mb-1 block w-full border-2 px-2 py-1 outline-none`}
+          className={`${isError ? "border-error" : "border-border"} ${type === "password" ? "pl-2 pr-9" : "px-2"} mb-1 block w-full border-2 py-1 outline-none`}
           type={type !== "password" || isShow ? "text" : "password"}
         />
         {type === "password" && (
