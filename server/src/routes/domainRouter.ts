@@ -28,8 +28,6 @@ const domainRouter = Router()
 
       const domains = await Domain.find({ userId: req.user.id });
 
-      console.log(typeof domains);
-
       return res.json(domains);
     } catch (err) {
       return res.status(400).json(err);
