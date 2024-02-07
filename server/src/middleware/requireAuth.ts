@@ -6,7 +6,7 @@ const requireAuth = (req: UserRequest, res: Response, next: NextFunction) => {
   const token = req.header("Authorization");
 
   if (!token) {
-    return res.status(401).json({ message: "Authorization token is missing" });
+    return res.status(401).json("Authorization token is missing");
   }
 
   try {
@@ -15,7 +15,7 @@ const requireAuth = (req: UserRequest, res: Response, next: NextFunction) => {
     req.user = decoded;
     next();
   } catch (e) {
-    return res.status(401).json({ message: "Invalid token" });
+    return res.status(401).json("Invalid token");
   }
 };
 
