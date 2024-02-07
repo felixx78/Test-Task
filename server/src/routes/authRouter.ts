@@ -43,7 +43,7 @@ const authRouter = Router()
           username: username,
           password: hashedPassword,
         });
-        newUser.save();
+        await newUser.save();
 
         const payload = {
           id: newUser._id,
