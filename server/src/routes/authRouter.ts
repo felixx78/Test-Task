@@ -45,10 +45,13 @@ const authRouter = Router()
         });
         newUser.save();
 
-        const refreshToken = generateRefreshToken({
+        const payload = {
+          id: newUser._id,
           username: newUser.username,
-        });
-        const accessToken = generateAccessToken({ username: newUser.username });
+        };
+
+        const refreshToken = generateRefreshToken(payload);
+        const accessToken = generateAccessToken(payload);
 
         const expirationDate = new Date();
         expirationDate.setDate(expirationDate.getDate() + 30);
@@ -60,7 +63,7 @@ const authRouter = Router()
 
         return res.json({
           acessToken: accessToken,
-          payload: { username: newUser.username },
+          payload,
         });
       } catch (e) {
         return res.status(500).end();
@@ -82,11 +85,13 @@ const authRouter = Router()
       if (!isPasswordMatch) {
         return res.status(401).json("Incorrect password");
       }
-
-      const refreshToken = generateRefreshToken({
+      const payload = {
+        id: userFind._id,
         username: userFind.username,
-      });
-      const accessToken = generateAccessToken({ username: userFind.username });
+      };
+
+      const refreshToken = generateRefreshToken(payload);
+      const accessToken = generateAccessToken(payload);
 
       const expirationDate = new Date();
       expirationDate.setDate(expirationDate.getDate() + 30);
@@ -98,7 +103,7 @@ const authRouter = Router()
 
       return res.json({
         acessToken: accessToken,
-        payload: { username: userFind.username },
+        payload,
       });
     } catch (e) {
       return res.status(500).end();
