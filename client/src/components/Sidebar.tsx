@@ -1,7 +1,11 @@
-import { Link, useLocation } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { userActions } from "../redux/userReducer";
 
 function Sidebar() {
   const location = useLocation();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const items = [
     {
@@ -13,6 +17,11 @@ function Sidebar() {
       href: "/add",
     },
   ];
+
+  const handleLogout = () => {
+    dispatch(userActions.logout());
+    navigate("/login", { replace: true });
+  };
 
   return (
     <aside className="flex w-full items-center justify-between bg-primary px-4 py-2 text-background sm:h-screen sm:w-[200px] sm:flex-col sm:items-stretch sm:px-0 sm:pt-4">
@@ -31,7 +40,9 @@ function Sidebar() {
 
       <div className="hidden flex-1 sm:block"></div>
 
-      <button className="sm:bg-primary-dark sm:py-2">Logout</button>
+      <button onClick={handleLogout} className="sm:bg-primary-dark sm:py-2">
+        Logout
+      </button>
     </aside>
   );
 }
