@@ -58,6 +58,7 @@ const authRouter = Router()
 
         res.cookie("token", refreshToken, {
           httpOnly: true,
+          sameSite: "none",
           expires: expirationDate,
         });
 
@@ -98,6 +99,7 @@ const authRouter = Router()
 
       res.cookie("token", refreshToken, {
         httpOnly: true,
+        sameSite: "none",
         expires: expirationDate,
       });
 
