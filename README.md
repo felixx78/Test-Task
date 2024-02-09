@@ -1,0 +1,62 @@
+
+# Domains
+
+## Tech Stack
+
+**Client:** React, Typescript, Tailwind, Redux, React Query
+
+**Server:** Node.js, Express, Mongoose, Typescript, JWT
+
+## Run Locally
+
+Clone the project
+
+```bash
+  git clone https://github.com/v1st78/The-Fellas-Ads-Test
+```
+
+Go to the project directory
+
+```bash
+  cd The-Fellas-Ads-Test
+```
+
+Install dependencies and run client
+
+```bash
+  cd ./client
+```
+
+```bash
+  npm install
+```
+
+```bash
+  npm run dev
+```
+
+Install dependencies
+
+```bash
+  cd ./server
+```
+
+```bash
+  npm install
+```
+
+Create .env file
+
+Add
+```bash
+  MONGODB_URI=your_mongodb_uri
+```
+```bash
+  JWT_SECRET=secret_key
+```
+
+Run server
+
+```bash
+  npm run dev 
+```
