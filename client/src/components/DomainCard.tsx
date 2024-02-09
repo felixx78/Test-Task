@@ -11,7 +11,7 @@ function DomainCard({
 }: {
   data: Domain;
   onDelete?: Function;
-  onEdit?: (data: Domain) => void;
+  onEdit?: (data: Domain & { _id?: string }) => void;
   center?: boolean;
 }) {
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
@@ -46,7 +46,7 @@ function DomainCard({
         <EditModal
           value={data}
           onCancel={() => setIsEditOpen(false)}
-          onEdit={(data: Domain) => {
+          onEdit={(data: Domain & { _id?: string }) => {
             onEdit!(data);
             setIsEditOpen(false);
           }}
@@ -136,7 +136,7 @@ const EditModal = ({
   onCancel,
 }: {
   value: Domain;
-  onEdit: (data: Domain) => void;
+  onEdit: (data: Domain & { _id?: string }) => void;
   onCancel: Function;
 }) => {
   return (
