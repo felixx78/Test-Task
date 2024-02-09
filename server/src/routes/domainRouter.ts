@@ -48,7 +48,7 @@ const domainRouter = Router()
 
         await newDomain.save();
 
-        return res.status(200).end();
+        return res.json("Added new domain");
       } catch (err) {
         return res.status(400).json(err);
       }
