@@ -17,13 +17,22 @@ const domainSchema = z.object({
 });
 
 const domainRouter = Router()
-  .get("/all", async (req: UserRequest, res: Response) => {
+  .get("/:page", async (req: UserRequest, res: Response) => {
     try {
       if (!req.user) return res.status(403).end();
 
       const domains = await Domain.find({ userId: req.user.id });
+      const totalPages = Math.ceil(domains.length / 10);
 
-      return res.json(domains);
+      const page = Number(req.params.page);
+
+      const startIndex = (page - 1) * 10;
+      const endIndex = page * 10;
+
+      return res.json({
+        maxPages: totalPages,
+        result: domains.slice(startIndex, endIndex),
+      });
     } catch (err) {
       return res.status(400).json(err);
     }
