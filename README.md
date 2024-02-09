@@ -4,7 +4,7 @@
 
 **Client:** React, Typescript, Tailwind, Redux, React Query, React Hook Form, Zod
 
-**Server:** Node.js, Express, Mongoose, Typescript, JWT, Zod
+**Server:** Node.js, Express, Mongoose, Typescript, Zod, JWT 
 
 ## Run Locally
 
