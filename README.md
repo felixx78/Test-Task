@@ -1,4 +1,3 @@
-
 # Domains
 
 ## Tech Stack
@@ -35,7 +34,11 @@ Install dependencies and run client
   npm run dev
 ```
 
-Install dependencies
+Go to server folder and install dependencies
+
+```bash
+  cd ../
+```
 
 ```bash
   cd ./server
@@ -48,9 +51,11 @@ Install dependencies
 Create .env file
 
 Add
+
 ```bash
   MONGODB_URI=your_mongodb_uri
 ```
+
 ```bash
   JWT_SECRET=secret_key
 ```
@@ -58,5 +63,5 @@ Add
 Run server
 
 ```bash
-  npm run dev 
+  npm run dev
 ```
