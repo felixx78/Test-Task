@@ -13,7 +13,7 @@ function App() {
       <Route path="/signup" element={<Signup />} />
 
       <Route path="/" element={<RequireAuth children={<RootLayout />} />}>
-        <Route index element={<Home />} />
+        <Route path=":page?" element={<Home />} />
 
         <Route path="add" element={<Add />} />
       </Route>
