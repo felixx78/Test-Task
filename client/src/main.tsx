@@ -8,6 +8,7 @@ import store from "./redux/store.ts";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import "react-loading-skeleton/dist/skeleton.css";
 import { SkeletonTheme } from "react-loading-skeleton";
+import "react-toastify/dist/ReactToastify.css";
 
 const queryClient = new QueryClient();
 

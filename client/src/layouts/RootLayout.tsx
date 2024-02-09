@@ -1,5 +1,6 @@
 import { Outlet } from "react-router-dom";
 import Sidebar from "../components/Sidebar";
+import { ToastContainer } from "react-toastify";
 
 function RootLayout() {
   return (
@@ -7,6 +8,7 @@ function RootLayout() {
       <Sidebar />
       <main className="w-full sm:pl-[200px]">
         <Outlet />
+        <ToastContainer hideProgressBar autoClose={1500} />
       </main>
     </div>
   );
