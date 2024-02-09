@@ -3,13 +3,16 @@ import { Domain } from "../lib/definition";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import FormInput from "./FormInput";
+import { useEffect } from "react";
 
 function DomainForm({
   title,
   onSubmit,
+  value,
 }: {
   title: string;
   onSubmit: (data: Domain) => void;
+  value?: Domain;
 }) {
   const schema: ZodType<Domain> = z.object({
     name: z.string().max(32),
@@ -29,6 +32,10 @@ function DomainForm({
   } = useForm<Domain>({
     resolver: zodResolver(schema),
   });
+
+  useEffect(() => {
+    reset(value);
+  }, []);
 
   const onSubmitWrapper = (data: Domain) => {
     onSubmit(data);
