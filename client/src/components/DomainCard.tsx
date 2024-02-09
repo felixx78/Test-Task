@@ -11,7 +11,7 @@ function DomainCard({
 }: {
   data: Domain;
   onDelete?: Function;
-  onEdit?: (data: Domain & { _id?: string }) => void;
+  onEdit?: (data: Domain) => void;
   center?: boolean;
 }) {
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
@@ -46,10 +46,7 @@ function DomainCard({
         <EditModal
           value={data}
           onCancel={() => setIsEditOpen(false)}
-          onEdit={(data: Domain & { _id?: string }) => {
-            onEdit!(data);
-            setIsEditOpen(false);
-          }}
+          onEdit={onEdit!}
         />
       )}
       <div className={onDelete || onEdit ? "mb-3" : ""}>
@@ -136,7 +133,7 @@ const EditModal = ({
   onCancel,
 }: {
   value: Domain;
-  onEdit: (data: Domain & { _id?: string }) => void;
+  onEdit: (data: Domain) => void;
   onCancel: Function;
 }) => {
   return (
@@ -145,7 +142,14 @@ const EditModal = ({
         <button className="absolute right-1 top-1" onClick={() => onCancel()}>
           <XMarkIcon className="h-6 w-6" />
         </button>
-        <DomainForm title="Edit" onSubmit={onEdit} value={value} />
+        <DomainForm
+          title="Edit"
+          onSubmit={(data) => {
+            onEdit(data);
+            onCancel();
+          }}
+          value={value}
+        />
       </div>
     </div>
   );
