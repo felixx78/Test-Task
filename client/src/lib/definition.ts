@@ -9,4 +9,6 @@ export type Domain = {
   port: number;
   username: string;
   password: string;
+  _id?: string;
+  userId?: string;
 };
