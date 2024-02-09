@@ -2,9 +2,9 @@
 
 ## Tech Stack
 
-**Client:** React, Typescript, Tailwind, Redux, React Query
+**Client:** React, Typescript, Tailwind, Redux, React Query, React Hook Form, Zod
 
-**Server:** Node.js, Express, Mongoose, Typescript, JWT
+**Server:** Node.js, Express, Mongoose, Typescript, JWT, Zod
 
 ## Run Locally
 
