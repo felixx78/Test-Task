@@ -5,7 +5,7 @@ function RootLayout() {
   return (
     <div className="flex min-h-screen flex-col bg-background text-copy sm:flex-row">
       <Sidebar />
-      <main className="w-full">
+      <main className="w-full sm:pl-[200px]">
         <Outlet />
       </main>
     </div>
