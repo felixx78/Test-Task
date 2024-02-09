@@ -4,6 +4,7 @@ import RootLayout from "./layouts/RootLayout";
 import RequireAuth from "./components/RequireAuth";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
+import Add from "./pages/Add";
 
 function App() {
   return (
@@ -13,6 +14,8 @@ function App() {
 
       <Route path="/" element={<RequireAuth children={<RootLayout />} />}>
         <Route index element={<Home />} />
+
+        <Route path="add" element={<Add />} />
       </Route>
     </Routes>
   );
