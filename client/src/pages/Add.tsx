@@ -1,6 +1,7 @@
 import { privateFetch } from "../api/privateFetch";
 import { Domain } from "../lib/definition";
 import DomainForm from "../components/DomainForm";
+import { toast } from "react-toastify";
 
 function Add() {
   const handleAdd = async (formData: Domain) => {
@@ -11,6 +12,8 @@ function Add() {
       },
       body: JSON.stringify(formData),
     });
+
+    toast("A new domain has been successfully added.");
   };
 
   return (
