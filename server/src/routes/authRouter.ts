@@ -130,7 +130,7 @@ const authRouter = Router()
 
       return res.json(newAccessToken);
     } catch (e) {
-      return res.status(500).end();
+      return res.status(401).end();
     }
   });
 
