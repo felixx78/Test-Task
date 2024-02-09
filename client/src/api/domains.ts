@@ -3,5 +3,5 @@ import { privateFetch } from "./privateFetch";
 
 export async function fetchAllDomain() {
   const data = await privateFetch("http://localhost:3000/api/domain/all");
-  return data as Array<Domain & { _id: string; userId: string }>;
+  return data as Array<Domain>;
 }
