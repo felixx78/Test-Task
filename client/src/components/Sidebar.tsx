@@ -24,7 +24,7 @@ function Sidebar() {
   };
 
   return (
-    <aside className="flex w-full items-center justify-between bg-primary px-4 pt-2 text-background sm:h-screen sm:w-[200px] sm:flex-col sm:items-stretch sm:px-0 sm:pt-4">
+    <aside className="flex w-full flex-shrink-0 items-center justify-between bg-primary px-4 pt-2 text-background sm:h-screen sm:w-[200px] sm:flex-col sm:items-stretch sm:px-0 sm:pt-4">
       <div className="text-center text-xl font-bold sm:mb-12">Domains</div>
       <div className="flex gap-4 divide-primary-light border-primary-light sm:flex-col sm:gap-0 sm:divide-y-2 sm:border-y-2">
         {items.map((i) => (
