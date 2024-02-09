@@ -53,6 +53,23 @@ const domainRouter = Router()
         return res.status(400).json(err);
       }
     }
-  );
+  )
+  .post("/remove", async (req: UserRequest, res: Response) => {
+    try {
+      const { id } = req.body;
+
+      const domain = await Domain.findById(id);
+
+      if (!domain) return res.status(404).end();
+
+      if (domain.userId !== req.user?.id) return res.status(403).end();
+
+      await domain.deleteOne();
+
+      return res.json(`Domain ${id} deleted`);
+    } catch (err) {
+      return res.status(400).json(err);
+    }
+  });
 
 export default domainRouter;
