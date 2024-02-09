@@ -86,7 +86,7 @@ function Signup() {
 
         <div className="mb-2"></div>
 
-        <AuthInput
+        <FormInput
           label="Confirm Password"
           name="confirmPassword"
           type="password"
