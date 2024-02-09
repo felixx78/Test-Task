@@ -1,7 +1,7 @@
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/outline";
 import { useState } from "react";
 
-function AuthInput({
+function FormInput({
   label,
   type = "text",
   name,
@@ -45,4 +45,4 @@ function AuthInput({
     </div>
   );
 }
-export default AuthInput;
+export default FormInput;

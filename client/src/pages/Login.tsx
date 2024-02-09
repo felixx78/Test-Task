@@ -1,7 +1,7 @@
 import { ZodType, z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import AuthInput from "../components/AuthInput";
+import FormInput from "../components/FormInput";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { userActions } from "../redux/userReducer";
@@ -67,7 +67,7 @@ function Login() {
       >
         <h1 className="text-center text-xl">Login</h1>
 
-        <AuthInput
+        <FormInput
           label="Username"
           name="username"
           register={register}
@@ -75,7 +75,7 @@ function Login() {
           errorMessage={errors.username?.message}
         />
         <div className="mb-2"></div>
-        <AuthInput
+        <FormInput
           label="Password"
           name="password"
           type="password"
