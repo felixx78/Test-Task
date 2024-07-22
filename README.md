@@ -11,13 +11,13 @@
 Clone the project
 
 ```bash
-  git clone https://github.com/v1st78/The-Fellas-Ads-Test
+  git clone https://github.com/felixx78/Test-Task
 ```
 
 Go to the project directory
 
 ```bash
-  cd The-Fellas-Ads-Test
+  cd Test-Task
 ```
 
 Install dependencies and run client
